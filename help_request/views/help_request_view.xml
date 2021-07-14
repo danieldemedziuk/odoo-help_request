@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+
+        <record model='ir.ui.view' id='help_request_model_form'>
+            <field name="name">help_request.model.form</field>
+            <field name="model">help_request.model</field>
+            <field name="arch" type="xml">
+                <form string="Base">
+                    <header>
+                        <field name="state" widget="statusbar" clickable="True"/>
+                    </header>
+                    <sheet>
+                        <field name="avatar" widget='image' class="oe_avatar"/>
+                        <div name="title-name" class="oe_title">
+                            <field name="priority" widget="priority" class="mr-3"/>
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                              <field name="name" placeholder="Request title..."/>
+                            </h1>
+                        </div>
+                        <notebook colspan="4">
+                            <page name="general_information" string="General information">
+                                <group>
+                                    <group name="general">
+                                        <field name="category"/>
+                                        <field name="applicant" options="{'no_create': True, 'no_create_edit':True}"/>
+                                        <field name="realization_date"/>
+                                        <field name="attachment_ids" widget="many2many_binary" class="oe_inline"/>
+                                        <field name="description" placeholder="Request description..."/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model='ir.ui.view' id='help_request_model_tree'>
+            <field name="name">help_request.model.tree</field>
+            <field name="model">help_request.model</field>
+            <field name="arch" type="xml">
+                <tree string="Models" decoration-success="state == 'done'">
+                    <field name="avatar" widget="image" width="30" height="30" string="Icon"/>
+                    <field name="name"/>
+                    <field name="category"/>
+                    <field name="applicant"/>
+                    <field name="realization_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_help_request" model="ir.actions.act_window">
+            <field name="name">Help request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">help_request.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="master_root" name="Help request" sequence="80" web_icon="help_request,static/description/icon.png"/>
+        <menuitem id="help_request_main" name="Help requests" action="action_help_request" parent="master_root" sequence="2"/>
+    </data>
+</odoo>

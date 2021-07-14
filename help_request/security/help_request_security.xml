@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="module_help_request_category" model="ir.module.category">
+                <field name="name">Help request</field>
+                <field name="sequence">25</field>
+        </record>
+
+        <record id="group_help_request_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_help_request_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">The user will be able to see and create new help requests.</field>
+        </record>
+
+        <record id="group_help_request_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_help_request_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_help_request_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="comment">The manager will be able to manage help requests.</field>
+        </record>
+
+
+    </data>
+</odoo>
